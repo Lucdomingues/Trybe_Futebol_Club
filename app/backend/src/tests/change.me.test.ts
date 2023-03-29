@@ -3,43 +3,25 @@ import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
-import { app } from '../app';
-import Example from '../database/models/ExampleModel';
-
-import { Response } from 'superagent';
+const app = require('../../src/app');
+import Team from '../database/models/Team'
+import teamMock from './mocks/teams.mock';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Seu teste', () => {
-  /**
-   * Exemplo do uso de stubs com tipos
-   */
+describe('Integration Test', () => {
+  it('checks if /teams returns a list of teams', async () => {
+    sinon.stub(Team, 'findAll').resolves(teamMock as Team[])
 
-  // let chaiHttpResponse: Response;
+    const response = await chai.request(app).get('/teams')
 
-  // before(async () => {
-  //   sinon
-  //     .stub(Example, "findOne")
-  //     .resolves({
-  //       ...<Seu mock>
-  //     } as Example);
-  // });
-
-  // after(()=>{
-  //   (Example.findOne as sinon.SinonStub).restore();
-  // })
-
-  // it('...', async () => {
-  //   chaiHttpResponse = await chai
-  //      .request(app)
-  //      ...
-
-  //   expect(...)
-  // });
-
-  it('Seu sub-teste', () => {
-    expect(false).to.be.eq(true);
+    expect(response.status).to.be.equal(200);
+    expect(response.body).to.deep.equal(teamMock as Team[]);
   });
+
+  after(()=>{
+    sinon.restore();
+  })
 });
