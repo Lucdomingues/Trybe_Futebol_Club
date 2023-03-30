@@ -8,6 +8,7 @@ class TeamsRouter {
     this.route = express.Router();
 
     this.route.get('/', this.teamsController.getAll);
+    this.route.get('/:id', this.teamsController.getById);
   }
 }
 
