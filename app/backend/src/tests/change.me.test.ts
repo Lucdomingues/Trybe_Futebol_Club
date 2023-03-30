@@ -3,7 +3,7 @@ import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
-const app = require('../../src/app');
+const {app} = require('../../src/app');
 import Team from '../database/models/Team'
 import teamMock from './mocks/teams.mock';
 
