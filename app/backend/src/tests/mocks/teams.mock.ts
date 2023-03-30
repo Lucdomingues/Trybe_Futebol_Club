@@ -22,6 +22,6 @@ const teamMock = {
   "teamName": "Cruzeiro"
 }
 
-const mocks = { teamMock, teamsMock }
+const teamsMocks = { teamMock, teamsMock }
 
-export default mocks;
+export default teamsMocks;

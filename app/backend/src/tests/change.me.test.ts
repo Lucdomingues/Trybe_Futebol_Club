@@ -5,7 +5,9 @@ import chaiHttp = require('chai-http');
 
 const {app} = require('../../src/app');
 import Team from '../database/models/Team'
-import mocks from './mocks/teams.mock';
+import User from '../database/models/User'
+import teamsMocks from './mocks/teams.mock';
+import loginMocks from './mocks/login.mock';
 
 chai.use(chaiHttp);
 
@@ -13,21 +15,35 @@ const { expect } = chai;
 
 describe('Integration Test', () => {
   it('checks if /teams returns a list of teams', async () => {
-    sinon.stub(Team, 'findAll').resolves(mocks.teamsMock as Team[])
+    sinon.stub(Team, 'findAll').resolves(teamsMocks.teamsMock as Team[])
 
     const response = await chai.request(app).get('/teams')
 
     expect(response.status).to.be.equal(200);
-    expect(response.body).to.deep.equal(mocks.teamsMock as Team[]);
+    expect(response.body).to.deep.equal(teamsMocks.teamsMock as Team[]);
   });
 
-  it('checks if /teams returns a specific team through its id', async () => {
-    sinon.stub(Team, 'findByPk').resolves(mocks.teamsMock[0] as Team)
+  it('checks if /teams returns a time by id', async () => {
+    sinon.stub(Team, 'findByPk').resolves(teamsMocks.teamsMock[0] as Team)
 
     const response = await chai.request(app).get('/teams/1')
 
     expect(response.status).to.be.equal(200);
-    expect(response.body).to.deep.equal(mocks.teamMock as Team);
+    expect(response.body).to.deep.equal(teamsMocks.teamMock as Team);
+  });
+
+  it('checks if /login returns a token', async () => {
+    sinon.stub(User, 'findOne').resolves(loginMocks.loginMock as User)
+
+    const response = await chai
+      .request(app)
+      .post('/login').send({
+        email: 'test@mock.com',
+        password: '123456',
+      })
+
+    expect(response.status).to.be.equal(200);
+    expect(response.body).to.deep.equal({ token: loginMocks.tokenMock });
   });
 
   after(()=>{
