@@ -1,4 +1,6 @@
 import * as bcrypt from 'bcryptjs';
+import * as jwt from 'jsonwebtoken';
+import IData from '../interfaces/IData';
 import User from '../database/models/User';
 import jwtGenerator from '../auth/authFunc';
 
@@ -19,5 +21,11 @@ export default class UsersServices {
     const token = await jwtGenerator(user);
 
     return { type: null, message: token };
+  };
+
+  role = async (token: string) => {
+    const { data: { role } } = jwt.decode(token) as IData;
+
+    return { role };
   };
 }

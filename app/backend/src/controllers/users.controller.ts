@@ -20,4 +20,16 @@ export default class UserController {
       return res.status(500).json('Server Error!');
     }
   };
+
+  verifyLogin = async (req: Request, res: Response) => {
+    try {
+      const { Authorization: token } = req.headers;
+
+      const response = await this.usersServices.role(token as string);
+
+      return res.status(200).json(response);
+    } catch (error) {
+      return res.status(500).json('Server Error!');
+    }
+  };
 }

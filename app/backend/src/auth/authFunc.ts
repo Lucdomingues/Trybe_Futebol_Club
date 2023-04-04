@@ -9,6 +9,8 @@ const jwtGenerator = async (user: User) => {
     {
       data: {
         userId: user.id,
+        email: user.email,
+        role: user.role,
       },
     },
     secret,

@@ -119,4 +119,16 @@ describe('Integration Test', () => {
     expect(response.status).to.be.equal(400);
     expect(response.body).to.deep.equal({ message: 'All fields must be filled' });
   });
+
+  // it('checks if the login method returns the users role if the token is specified', async () => {
+  //   sinon.stub(User, 'findByPk').resolves(loginMocks.userMock as User)
+  //   sinon.stub(bcrypt, 'compareSync').returns(true)
+
+  //   const response = await chai
+  //     .request(app)
+  //     .get('/login')
+
+  //   expect(response.status).to.be.equal(200);
+  //   expect(response.body).to.deep.equal({ role: 'admin' });
+  // });
 });
