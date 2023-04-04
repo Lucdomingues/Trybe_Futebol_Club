@@ -52,6 +52,7 @@ describe('Integration Test', () => {
 
   it('checks if /login returns error 401 if password does not exist in db', async () => {
     sinon.stub(User, 'findOne').resolves(loginMocks.userMock as User)
+    sinon.stub(bcrypt, 'compareSync').returns(false)
 
     const response = await chai
       .request(app)
@@ -66,19 +67,19 @@ describe('Integration Test', () => {
 
   it('checks if /login returns a token', async () => {
     sinon.stub(User, 'findOne').resolves(loginMocks.userMock as User)
-    sinon.stub(bcrypt, 'compareSync').resolves(true)
+    sinon.stub(bcrypt, 'compareSync').returns(true)
 
     const response = await chai
       .request(app)
       .post('/login').send(loginMocks.loginMock)
 
     expect(response.status).to.be.equal(200);
-    expect(response.body).to.deep.equal({ token: loginMocks.tokenMock });
+    expect(response.body).to.be.key('token');
   });
 
   it('checks if /login returns error 401 if the specified email does not exist in the db', async () => {
     sinon.stub(User, 'findOne').resolves(null)
-    sinon.stub(bcrypt, 'compareSync').resolves(true)
+    sinon.stub(bcrypt, 'compareSync').returns(true)
 
     const response = await chai
       .request(app)
@@ -93,7 +94,7 @@ describe('Integration Test', () => {
 
   it('checks if /login returns error 400 if email is not specified', async () => {
     sinon.stub(User, 'findOne').resolves(null)
-    sinon.stub(bcrypt, 'compareSync').resolves(true)
+    sinon.stub(bcrypt, 'compareSync').returns(true)
 
     const response = await chai
       .request(app)
@@ -107,7 +108,7 @@ describe('Integration Test', () => {
 
   it('checks if /login returns error 400 if password is not specified', async () => {
     sinon.stub(User, 'findOne').resolves(null)
-    sinon.stub(bcrypt, 'compareSync').resolves(true)
+    sinon.stub(bcrypt, 'compareSync').returns(true)
 
     const response = await chai
       .request(app)

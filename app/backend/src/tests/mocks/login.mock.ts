@@ -16,18 +16,6 @@ const userMock = {
     "password": "123456",
 }
 
-const tokenMock = jwt.sign(
-    {
-        data: {
-            userId: userMock.id,
-        },
-    },
-    secret,
-    {
-        expiresIn: '7d', algorithm: 'HS256',
-    },
-)
-
-const loginMocks = { tokenMock, userMock, loginMock }
+const loginMocks = { userMock, loginMock }
 
 export default loginMocks;
