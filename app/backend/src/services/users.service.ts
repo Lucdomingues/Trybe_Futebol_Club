@@ -5,12 +5,6 @@ import jwtGenerator from '../auth/authFunc';
 export default class UsersServices {
   private usersModel = User;
 
-  getAll = async () => {
-    const users = await this.usersModel.findAll() as User[];
-
-    return users;
-  };
-
   getByEmail = async (email: string, password: string) => {
     const user = await this.usersModel.findOne({ where: { email } }) as User;
 

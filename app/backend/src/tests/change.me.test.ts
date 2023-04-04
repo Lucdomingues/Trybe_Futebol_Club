@@ -1,4 +1,5 @@
 import * as sinon from 'sinon';
+import * as bcrypt from 'bcryptjs';
 import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
@@ -14,6 +15,9 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe('Integration Test', () => {
+
+  afterEach(() => sinon.restore());
+
   it('checks if /teams returns a list of teams', async () => {
     sinon.stub(Team, 'findAll').resolves(teamsMocks.teamsMock as Team[])
 
@@ -32,21 +36,86 @@ describe('Integration Test', () => {
     expect(response.body).to.deep.equal(teamsMocks.teamMock as Team);
   });
 
-  it('checks if /login returns a token', async () => {
-    sinon.stub(User, 'findOne').resolves(loginMocks.loginMock as User)
+  it('check /login allows login with invalid email', async () => {
+    sinon.stub(User, 'findOne').resolves(loginMocks.userMock as User)
+
+    const response = await chai
+      .request(app)
+      .post('/login').send({
+        email: 'invalid_email@',
+        password: '123456',
+      })
+
+    expect(response.status).to.be.equal(401);
+    expect(response.body).to.deep.equal({ message: 'Invalid email or password' });
+  });
+
+  it('checks if /login returns error 401 if password does not exist in db', async () => {
+    sinon.stub(User, 'findOne').resolves(loginMocks.userMock as User)
 
     const response = await chai
       .request(app)
       .post('/login').send({
         email: 'test@mock.com',
-        password: '123456',
+        password: 'invalid_password',
       })
+
+    expect(response.status).to.be.equal(401);
+    expect(response.body).to.deep.equal({ message: 'Invalid email or password' });
+  });
+
+  it('checks if /login returns a token', async () => {
+    sinon.stub(User, 'findOne').resolves(loginMocks.userMock as User)
+    sinon.stub(bcrypt, 'compareSync').resolves(true)
+
+    const response = await chai
+      .request(app)
+      .post('/login').send(loginMocks.loginMock)
 
     expect(response.status).to.be.equal(200);
     expect(response.body).to.deep.equal({ token: loginMocks.tokenMock });
   });
 
-  after(()=>{
-    sinon.restore();
-  })
+  it('checks if /login returns error 401 if the specified email does not exist in the db', async () => {
+    sinon.stub(User, 'findOne').resolves(null)
+    sinon.stub(bcrypt, 'compareSync').resolves(true)
+
+    const response = await chai
+      .request(app)
+      .post('/login').send({
+        email: 'email_not@exists.com',
+        password: '123456',
+      })
+
+    expect(response.status).to.be.equal(401);
+    expect(response.body).to.deep.equal({ message: 'Invalid email or password' });
+  });
+
+  it('checks if /login returns error 400 if email is not specified', async () => {
+    sinon.stub(User, 'findOne').resolves(null)
+    sinon.stub(bcrypt, 'compareSync').resolves(true)
+
+    const response = await chai
+      .request(app)
+      .post('/login').send({
+        password: '123456',
+      })
+
+    expect(response.status).to.be.equal(400);
+    expect(response.body).to.deep.equal({ message: 'All fields must be filled' });
+  });
+
+  it('checks if /login returns error 400 if password is not specified', async () => {
+    sinon.stub(User, 'findOne').resolves(null)
+    sinon.stub(bcrypt, 'compareSync').resolves(true)
+
+    const response = await chai
+      .request(app)
+      .post('/login').send({
+        email: 'test@mock.com',
+      })
+
+    expect(response.status).to.be.equal(400);
+    expect(response.body).to.deep.equal({ message: 'All fields must be filled' });
+  });
 });

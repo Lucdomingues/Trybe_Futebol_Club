@@ -4,6 +4,11 @@ import * as jwt from 'jsonwebtoken';
 const secret = process.env.JWT_SECRET || 'seusecretdetoken';
 
 const loginMock = {
+    email: 'test@mock.com',
+    password: '123456',
+}
+
+const userMock = {
     "id": 1,
     "username": "Test",
     "role": "admin",
@@ -14,7 +19,7 @@ const loginMock = {
 const tokenMock = jwt.sign(
     {
         data: {
-            userId: loginMock.id,
+            userId: userMock.id,
         },
     },
     secret,
@@ -23,6 +28,6 @@ const tokenMock = jwt.sign(
     },
 )
 
-const loginMocks = {tokenMock, loginMock}
+const loginMocks = { tokenMock, userMock, loginMock }
 
 export default loginMocks;
