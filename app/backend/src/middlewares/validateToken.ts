@@ -5,18 +5,18 @@ export default class Token {
   private secret = process.env.JWT_SECRET || 'seusecretdetoken';
 
   validateToken = async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.header('Authorization');
+    try {
+      const { authorization: token } = req.headers;
 
-    if (!token) {
-      return res.status(401).json({ message: 'Token not found' });
-    }
+      if (!token) {
+        return res.status(401).json({ message: 'Token not found' });
+      }
 
-    const decoded = jwt.verify(token as string, this.secret);
+      jwt.verify(token, this.secret);
 
-    if (!decoded) {
+      next();
+    } catch (error) {
       return res.status(401).json({ message: 'Token must be a valid token' });
     }
-
-    next();
   };
 }

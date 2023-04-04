@@ -23,7 +23,7 @@ export default class UserController {
 
   verifyLogin = async (req: Request, res: Response) => {
     try {
-      const { Authorization: token } = req.headers;
+      const { authorization: token } = req.headers;
 
       const response = await this.usersServices.role(token as string);
 
