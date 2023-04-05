@@ -62,7 +62,7 @@ class MatchesController {
       return res.status(201).json(matcheCreated);
     } catch (error) {
       console.log(error);
-      
+
       return res.status(500).json('Server Errorr!');
     }
   };
