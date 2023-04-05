@@ -58,11 +58,14 @@ class MatchesController {
   matcheCreate = async (req: Request, res: Response) => {
     try {
       const matcheCreated = await this.matchesServices.matcheCreate(req.body);
+      const { type, message } = matcheCreated;
 
-      return res.status(201).json(matcheCreated);
+      if (type !== null) {
+        return res.status(type).json({ message });
+      }
+
+      return res.status(201).json(message);
     } catch (error) {
-      console.log(error);
-
       return res.status(500).json('Server Errorr!');
     }
   };
