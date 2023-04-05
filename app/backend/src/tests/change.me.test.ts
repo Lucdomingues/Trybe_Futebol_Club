@@ -141,5 +141,18 @@ describe('Integretion Test Matches', () => {
     
     expect(response.status).to.be.equal(200);
     expect(response.body).to.deep.equal(matchesMocks.matchesListReturned);
-   });
+  });
+
+  // it('checks if the /matcher/post endpoint is able to successfully create a new match', async () => {
+  //   sinon.stub(Matche, 'create').resolves({ dataValues: matchesMocks.sucessMock } as Matche);
+
+  //   const response = await chai
+  //     .request(app)
+  //     .post('/matches')
+  //     .set({ authorization: loginMocks.tokenMockAdm })
+  //     .send(matchesMocks.newMatcheMock)
+
+  //   expect(response.status).to.be.equal(201);
+  //   expect(response.body).to.deep.equal(matchesMocks.sucessMock);
+  // });
 })

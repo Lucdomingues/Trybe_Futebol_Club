@@ -54,6 +54,18 @@ class MatchesController {
       return res.status(500).json('Server Errorr!');
     }
   };
+
+  matcheCreate = async (req: Request, res: Response) => {
+    try {
+      const matcheCreated = await this.matchesServices.matcheCreate(req.body);
+
+      return res.status(201).json(matcheCreated);
+    } catch (error) {
+      console.log(error);
+      
+      return res.status(500).json('Server Errorr!');
+    }
+  };
 }
 
 export default MatchesController;

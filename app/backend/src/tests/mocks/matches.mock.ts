@@ -29,6 +29,22 @@ const matchesListReturned = [
     }
 ]
 
-const matchesMocks = { matchesListReturned };
+const newMatcheMock = {
+    "homeTeamId": 16,
+    "awayTeamId": 8,
+    "homeTeamGoals": 2,
+    "awayTeamGoals": 2,
+}
+
+const sucessMock = {
+    "id": 1,
+    "homeTeamId": 16,
+    "homeTeamGoals": 2,
+    "awayTeamId": 8,
+    "awayTeamGoals": 2,
+    "inProgress": true,
+}
+
+const matchesMocks = { matchesListReturned, newMatcheMock, sucessMock };
 
 export default matchesMocks;

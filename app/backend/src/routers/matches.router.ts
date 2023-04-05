@@ -20,6 +20,11 @@ class MatchesRouter {
       this.validateToken.validateToken,
       this.matchesController.matcheUpdate,
     );
+    this.route.post(
+      '/',
+      this.validateToken.validateToken,
+      this.matchesController.matcheCreate,
+    );
   }
 }
 

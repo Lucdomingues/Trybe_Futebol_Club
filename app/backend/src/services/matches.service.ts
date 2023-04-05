@@ -69,7 +69,14 @@ export default class MatchesServices {
       { homeTeamGoals, awayTeamGoals },
       { where: { id } },
     );
+  };
 
-    return true;
+  matcheCreate = async (newMatche: IMatches) => {
+    const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = newMatche;
+    const matcheCreated = await this.matchesModel.create({
+      homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals, inProgress: true,
+    });
+
+    return matcheCreated;
   };
 }
