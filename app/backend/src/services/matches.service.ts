@@ -8,10 +8,14 @@ export default class MatchesServices {
   getAll = async (): Promise<IMatches[]> => {
     const matches = await this.matchesModel.findAll({
       include: [{
-        model: Team, as: 'homeTeam', attributes: { exclude: ['id'] },
+        model: Team,
+        as: 'homeTeam',
+        attributes: { exclude: ['id'] },
       },
       {
-        model: Team, as: 'awayTeam', attributes: { exclude: ['id'] },
+        model: Team,
+        as: 'awayTeam',
+        attributes: { exclude: ['id'] },
       },
       ],
     });
@@ -19,9 +23,35 @@ export default class MatchesServices {
     return matches;
   };
 
-  // getById = async (id: string | number) => {
-  //     const team = await this.teamsModel.findByPk(id);
+  static convertToBool = (string: string) => {
+    let isSet;
 
-  //     return team;
-  // };
+    if (string.toLowerCase() === 'true') {
+      isSet = true;
+    }
+    if (string.toLowerCase() === 'false') {
+      isSet = false;
+    }
+    return isSet;
+  };
+
+  getProgress = async (status: string) => {
+    const inProgress = MatchesServices.convertToBool(status) as boolean;
+    const matchesProgress = await this.matchesModel.findAll({
+      where: { inProgress },
+      include: [{
+        model: Team,
+        as: 'homeTeam',
+        attributes: { exclude: ['id'] },
+      },
+      {
+        model: Team,
+        as: 'awayTeam',
+        attributes: { exclude: ['id'] },
+      },
+      ],
+    });
+
+    return matchesProgress;
+  };
 }

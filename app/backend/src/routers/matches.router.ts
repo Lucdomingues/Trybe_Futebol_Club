@@ -7,8 +7,7 @@ class MatchesRouter {
   constructor() {
     this.route = express.Router();
 
-    this.route.get('/', this.matchesController.getAll);
-    // this.route.get('/:id', this.teamsController.getById);
+    this.route.get('/', this.matchesController.getAllandFilters);
   }
 }
 
