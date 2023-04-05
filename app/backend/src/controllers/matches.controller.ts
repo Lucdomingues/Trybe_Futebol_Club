@@ -25,6 +25,22 @@ class MatchesController {
       return res.status(500).json('Server Error!');
     }
   };
+
+  matcheFinish = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+
+      const finish = await this.matchesServices.matcheFinish(id);
+
+      if (!finish) {
+        return res.status(304).json({ message: 'unable to modify match status' });
+      }
+
+      return res.status(200).json({ message: 'Finished' });
+    } catch (error) {
+      return res.status(500).json('Server Error!');
+    }
+  };
 }
 
 export default MatchesController;

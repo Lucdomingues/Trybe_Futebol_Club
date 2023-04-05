@@ -54,4 +54,13 @@ export default class MatchesServices {
 
     return matchesProgress;
   };
+
+  matcheFinish = async (id: string | number) => {
+    await this.matchesModel.update(
+      { inProgress: false },
+      { where: { id } },
+    );
+
+    return true;
+  };
 }
