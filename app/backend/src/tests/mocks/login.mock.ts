@@ -1,7 +1,8 @@
 import 'dotenv/config';
-import * as jwt from 'jsonwebtoken';
 
-const secret = process.env.JWT_SECRET || 'seusecretdetoken';
+const secretMock = process.env.JWT_SECRET || 'seusecretdetoken';
+
+const tokenMock = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJJZCI6NSwiZW1haWwiOiJsdWNhc0Boby5jb20iLCJyb2xlIjoidXNlciJ9LCJpYXQiOjE2ODA2NDgzNDYsImV4cCI6MTY4MTI1MzE0Nn0.2zVs2cZflZsJTy9WCAL6tGcziNZFFjYvysbhrKVkniQ'
 
 const loginMock = {
     email: 'test@mock.com',
@@ -32,6 +33,6 @@ const usersMock = [{
     }
 ]
 
-const loginMocks = { userMock, loginMock, usersMock }
+const loginMocks = { userMock, loginMock, usersMock, tokenMock, secretMock }
 
 export default loginMocks;
