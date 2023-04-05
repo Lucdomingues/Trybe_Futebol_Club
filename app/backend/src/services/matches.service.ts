@@ -63,4 +63,13 @@ export default class MatchesServices {
 
     return true;
   };
+
+  matcheUpdate = async (id: string | number, homeTeamGoals: number, awayTeamGoals: number) => {
+    await this.matchesModel.update(
+      { homeTeamGoals, awayTeamGoals },
+      { where: { id } },
+    );
+
+    return true;
+  };
 }

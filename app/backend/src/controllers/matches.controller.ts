@@ -41,6 +41,19 @@ class MatchesController {
       return res.status(500).json('Server Error!');
     }
   };
+
+  matcheUpdate = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const { homeTeamGoals, awayTeamGoals } = req.body;
+
+      await this.matchesServices.matcheUpdate(id, homeTeamGoals, awayTeamGoals);
+
+      return res.status(200).json({ message: 'update gols' });
+    } catch (error) {
+      return res.status(500).json('Server Errorr!');
+    }
+  };
 }
 
 export default MatchesController;

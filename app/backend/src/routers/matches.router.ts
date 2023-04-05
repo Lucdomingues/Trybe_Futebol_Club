@@ -15,6 +15,11 @@ class MatchesRouter {
       this.validateToken.validateToken,
       this.matchesController.matcheFinish,
     );
+    this.route.patch(
+      '/:id',
+      this.validateToken.validateToken,
+      this.matchesController.matcheUpdate,
+    );
   }
 }
 
