@@ -5,16 +5,18 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 const {app} = require('../../src/app');
-import Team from '../database/models/Team'
-import User from '../database/models/User'
+import Team from '../database/models/Team';
+import User from '../database/models/User';
+import Matche from '../database/models/Matche';
 import teamsMocks from './mocks/teams.mock';
 import loginMocks from './mocks/login.mock';
+import matchesMocks from './mocks/matches.mock';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Integration Test', () => {
+describe('Integration Test Teams', () => {
 
   afterEach(() => sinon.restore());
 
@@ -35,7 +37,12 @@ describe('Integration Test', () => {
     expect(response.status).to.be.equal(200);
     expect(response.body).to.deep.equal(teamsMocks.teamMock as Team);
   });
+});
 
+describe('Integration Test Login', () => {
+
+  afterEach(() => sinon.restore());
+  
   it('check /login allows login with invalid email', async () => {
     sinon.stub(User, 'findOne').resolves(loginMocks.userMock as User)
 
@@ -119,4 +126,20 @@ describe('Integration Test', () => {
     expect(response.status).to.be.equal(400);
     expect(response.body).to.deep.equal({ message: 'All fields must be filled' });
   });
-});
+})
+
+describe('Integretion Test Matches', () => {
+  
+  afterEach(() => sinon.restore());
+
+  it('checks if the /matches/get endpoint returns a list of matches', async () => {
+    sinon.stub(Matche, 'findAll').resolves(matchesMocks.matchesListReturned as any);
+
+    const response = await chai
+      .request(app)
+      .get('/matches')
+    
+    expect(response.status).to.be.equal(200);
+    expect(response.body).to.deep.equal(matchesMocks.matchesListReturned);
+   });
+})
