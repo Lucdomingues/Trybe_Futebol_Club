@@ -86,6 +86,7 @@ No time de desenvolvimento do `TFC`, meu *squad* ficou responsável por desenvol
 * <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original-wordmark.svg" alt="express" width="50" height="50"/>
 * <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="50" height="50"/>
 * <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-plain-wordmark.svg" alt="git" width="50" height="50"/>
+* <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sequelize/sequelize-original-wordmark.svg" alt="sequelize" width="50" height="50"/>
 <p align="right">(<a href="#readme-top">de volta para o topo</a>)</p>
 
 
