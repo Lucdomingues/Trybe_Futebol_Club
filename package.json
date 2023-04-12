@@ -1,12 +1,9 @@
 {
   "name": "trybe-futebol-club",
   "version": "1.0.0",
-  "homepage": "https://Lucdomingues.github.io/Trybe_Futebol_Club",
   "description": "Ao iniciar este projeto, você concorda com as diretrizes do Código de Ética e Conduta e do Manual da Pessoa Estudante da Trybe.",
   "main": "index.js",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "postinstall": "npm run install:apps",
     "install:apps": "./apps_install.sh",
     "pretest": "(cd ./app/backend && /bin/sh tsc_eval.sh)",
