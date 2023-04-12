@@ -33,7 +33,7 @@
 <h3 align="center">Trybe Futebol Club</h3>
 
   <p align="center">
-    O `TFC` é um site informativo sobre partidas e classificações de futebol! ⚽️
+    O TFC é um site informativo sobre partidas e classificações de futebol! ⚽️
     <br />
   </p>
 </div>
