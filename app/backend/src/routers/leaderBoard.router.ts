@@ -8,6 +8,7 @@ class LeaderboardRouter {
     this.route = express.Router();
 
     this.route.get('/home', this.leaderboardController.getAll);
+    this.route.get('/away', this.leaderboardController.getAllAway);
   }
 }
 
