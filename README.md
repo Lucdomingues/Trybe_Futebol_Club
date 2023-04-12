@@ -33,7 +33,7 @@
 <h3 align="center">Trybe Futebol Club</h3>
 
   <p align="center">
-    Projeto com base em uma aplicação de gerenciamento de partidas de futebol!
+    O `TFC` é um site informativo sobre partidas e classificações de futebol! ⚽️
     <br />
   </p>
 </div>
@@ -66,12 +66,13 @@
 <!-- SOBRE O PROJETO -->
 ## Sobre o projeto
 
-Para este projeto, foi criado uma loja de itens medievais, no formato de uma API, utilizando Typescript.
+No time de desenvolvimento do `TFC`, meu *squad* ficou responsável por desenvolver uma API (utilizando o método `TDD`) e também integrar *- através do docker-compose -* as aplicações para que elas funcionem consumindo um banco de dados.
 
-Foi desenvolvido todas as camadas da aplicação (Models, Service e Controllers) e, por meio dessa aplicação, será possível realizar as operações básicas que se pode fazer em um determinado banco de dados: Criação, Leitura, Atualização e Exclusão (ou CRUD - Create, Read, Update e Delete).
+  Nesse projeto, foi construído **um back-end dockerizado utilizando modelagem de dados através do Sequelize**. Seu desenvolvimento **respeita regras de negócio** providas no projeto e **sua API é capaz de ser consumida por um front-end já provido nesse projeto**.
 
-Foi criado também alguns endpoints que irão ler e escrever em um banco de dados, utilizando o MySQL..
+  Para adicionar uma partida é necessário ter um _token_, portanto a pessoa deverá estar logada para fazer as alterações. Temos um relacionamento entre as tabelas `teams` e `matches` para fazer as atualizações das partidas.
 
+  O seu back-end está implementando regras de negócio para popular adequadamente a tabela disponível no front-end que é exibida para a pessoa usuária do sistema.
 
 <p align="right">(<a href="#readme-top">de volta para o topo</a>)</p>
 
